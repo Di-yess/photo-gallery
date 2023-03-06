@@ -30,14 +30,14 @@ const mainStyle = {
     // margin: '0 auto',
     left: '50%',
     top: '50%',
-    width: {sm:'65vw',xs:'90vw'},
+    width: { sm: '65vw', xs: '90vw' },
     maxWidth: '700px',
-    height: '70vh',
+    height: '64vh',
     transform: 'translate(-50%,-50%)',
 
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     position: 'fixed',
     overflow: 'hidden',
     backgroundColor: 'black',
@@ -48,7 +48,7 @@ const mainStyle = {
   modalPhoto: {
     padding: '1vh 0',
     width: '60%',
-    height: '98%',
+    height: '95%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -57,8 +57,9 @@ const mainStyle = {
     overflow: 'hidden',
     img: {
       width: '100%',
-      height: '100%',
-      objectFit: 'contain',
+      height: '95%',
+      objectFit: 'fill',
+      borderRadius: '10px',
     },
   },
 
@@ -77,13 +78,44 @@ const mainStyle = {
     right: '1.5vw',
     cursor: 'pointer',
     top: '0.8vw',
-    color: 'black',
+    color: 'white',
   },
 
   postAndCommentaries: {
-    height: '100%',
+    height: '90%',
     width: '30%',
     backgroundColor: 'white',
+    borderRadius: '5px',
+  },
+
+  post: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '90%',
+    minHeight: '35%',
+    margin: '1vh auto',
+  },
+
+  userAndAbout: {
+    width: '85%',
+    margin: '0 auto',
+    paddingTop: '7px',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  postText: {
+    width: '85%',
+    margin: '7px auto 3px',
+    fontSize: '13px',
+    lineHeight: '130%',
+  },
+
+  postInfo: {
+    width: '84%',
+    margin: '0 auto',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 };
 

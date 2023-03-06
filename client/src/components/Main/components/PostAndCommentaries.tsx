@@ -1,18 +1,18 @@
-import { Paper, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { useTheme } from '@emotion/react';
+import { Box } from '@mui/material';
 import styles from '../.././styles/mainStyle';
+import { commentaries, user } from '../data/commentaries';
+import Commentarie from './Commentarie';
+import Post from './Post';
 
 const PostAndCommentaries = () => {
+  const theme = useTheme();
+  console.log(theme);
   return (
     <Box sx={styles.postAndCommentaries}>
-      <Typography variant="h5">Test</Typography>
-      <Paper
-        elevation={2}
-        sx={{ width: '90%', height: '25px', margin: '1vh auto' }}
-      >
-        {' '}
-        Paper
-      </Paper>
+      <Post user={user} />
+      {commentaries &&
+        commentaries.map((comment) => <Commentarie comment={comment} />)}
     </Box>
   );
 };
