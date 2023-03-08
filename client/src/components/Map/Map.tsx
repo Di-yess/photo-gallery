@@ -1,7 +1,7 @@
 import { Box } from '@mui/system';
 import { FC } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import styles from 'src/components/styles/mapStyle';
+import styles from 'src/styles/mapStyle';
 
 type Props = {
   x: number;

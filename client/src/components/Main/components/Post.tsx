@@ -1,4 +1,4 @@
-import styles from '../.././styles/mainStyle';
+import styles from '../../../styles/mainStyle';
 import { Avatar, Box, Paper, Typography } from '@mui/material';
 import { FC } from 'react';
 

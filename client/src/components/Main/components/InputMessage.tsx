@@ -1,6 +1,6 @@
 import { Box, Input } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import styles from 'src/components/styles/mainStyle';
+import styles from 'src/styles/mainStyle';
 import { FC, useState } from 'react';
 import { Comment } from 'src/types/comment';
 

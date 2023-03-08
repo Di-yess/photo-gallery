@@ -1,34 +1,47 @@
-import React, { FC, useState } from 'react';
-import { Stack, Typography, Box } from '@mui/material';
 import {
   Favorite as FavoriteIcon,
-  Share as ShareIcon,
   Room as RoomIcon,
+  Share as ShareIcon,
 } from '@mui/icons-material';
-import styles from 'src/components/styles/mainStyle';
+import { Box, Stack, Typography } from '@mui/material';
+import { green, red } from '@mui/material/colors';
+import { FC, useState } from 'react';
 import Map from 'src/components/Map/Map';
-import { red, green } from '@mui/material/colors';
+import styles from 'src/styles/mainStyle';
 
 type Props = {
   image: Photo;
-  x: number;
-  y: number;
 };
 
-const PhotoInfo: FC<Props> = ({ image, x, y }) => {
+const PhotoInfo: FC<Props> = ({ image }) => {
   const [liked, setLiked] = useState(false);
   const [showMap, setShowMap] = useState(false);
+  const [likeCount, setLikeCount] = useState(5);
 
   return (
     <Box className="photoInfo" sx={styles.photoInfo}>
       <Box sx={styles.photoInfoMenu}>
-        <Typography fontSize='23px'>{image.name}</Typography>
+        <Typography fontSize="23px">{image.name}</Typography>
         <Stack direction="row" spacing={1}>
-          <FavoriteIcon
-            fontSize="medium"
-            sx={{ ...styles.infoMenuIcon, color: liked ? red[500] : 'white' }}
-            onClick={() => setLiked((prev) => !prev)}
-          />
+          <Box display="flex" alignItems="center">
+            <Typography
+              fontSize="18.5px"
+              marginRight={0.5}
+              color={liked ? red[500] : 'white'}
+            >
+              {likeCount}
+            </Typography>
+            <FavoriteIcon
+              fontSize="medium"
+              sx={{ ...styles.infoMenuIcon, color: liked ? red[500] : 'white' }}
+              onClick={() => {
+                liked
+                  ? setLikeCount((prev) => prev - 1)
+                  : setLikeCount((prev) => prev + 1);
+                setLiked((prev) => !prev);
+              }}
+            />
+          </Box>
           <ShareIcon sx={styles.infoMenuIcon} />
           {showMap && <Map x={image.x || 51.505} y={image.y || -0.09} />}
           <RoomIcon

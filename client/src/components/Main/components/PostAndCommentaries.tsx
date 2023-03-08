@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { FC, useState } from 'react';
-import styles from 'src/components/styles/mainStyle';
+import styles from 'src/styles/mainStyle';
 import { commentaries, user } from '../data/commentaries';
 import Commentarie from './Commentarie';
 import InputMessage from './InputMessage';

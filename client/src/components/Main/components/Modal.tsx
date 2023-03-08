@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import React, { FC } from 'react';
-import styles from '../.././styles/mainStyle';
+import { useAppSelector } from 'src/types/Apphooks';
+import styles from '../../../styles/mainStyle';
 import '.././Main.css';
 import CloseBtn from './CloseBtn';
 import ModalPhoto from './ModalPhoto';
@@ -13,6 +14,7 @@ type Props = {
 };
 
 const Modal: FC<Props> = ({ image, setImage, blurElement }) => {
+  // const user = useAppSelector((state) => state.user);
   return (
     <Box sx={styles.modal}>
       <ModalPhoto image={image} />

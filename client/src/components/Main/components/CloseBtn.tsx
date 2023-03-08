@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import React, { FC } from 'react';
-import styles from '../.././styles/mainStyle';
+import styles from '../../../styles/mainStyle';
 
 type Props = {
   setImage: React.Dispatch<React.SetStateAction<Photo | null>>;

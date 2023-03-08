@@ -1,7 +1,7 @@
 import { Avatar, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { FC, useState } from 'react';
-import styles from 'src/components/styles/mainStyle';
+import styles from 'src/styles/mainStyle';
 import { Comment } from 'src/types/comment';
 
 type Props = {

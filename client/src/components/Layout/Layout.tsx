@@ -8,7 +8,7 @@ import {
   IconButton,
 } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router-dom';
-import styles from '../styles/layoutStyle';
+import styles from '../../styles/layoutStyle';
 
 const Layout = () => {
   const theme = createTheme();

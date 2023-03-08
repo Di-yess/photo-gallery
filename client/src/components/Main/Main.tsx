@@ -1,6 +1,6 @@
 import { Box, ImageListItem, useMediaQuery, useTheme } from '@mui/material';
 import { useRef, useState } from 'react';
-import styles from '../styles/mainStyle';
+import styles from '../../styles/mainStyle';
 import Modal from './components/Modal';
 import { photos } from './data/photos';
 import './Main.css';
