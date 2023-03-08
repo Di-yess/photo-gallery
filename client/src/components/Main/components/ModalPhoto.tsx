@@ -1,5 +1,6 @@
 import { Box } from '@mui/system';
 import { FC } from 'react';
+import { Photo } from 'src/types/photo';
 import styles from '../../../styles/mainStyle';
 import PhotoInfo from './PhotoInfo';
 
@@ -16,7 +17,7 @@ const ModalPhoto: FC<Props> = ({ image }) => {
         alt={image.name}
         loading="lazy"
       />
-      <PhotoInfo image={image}  />
+      <PhotoInfo image={image} />
     </Box>
   );
 };

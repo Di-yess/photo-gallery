@@ -1,3 +1,4 @@
+import { FilesModule } from './../files/files.module';
 import { PrismaService } from './../prisma/prisma.service';
 import { UsersModule } from './../users/users.module';
 import { AuthModule } from './../auth/auth.module';
@@ -8,6 +9,6 @@ import { ImagesService } from './images.service';
 @Module({
   controllers: [ImagesController],
   providers: [ImagesService, PrismaService],
-  imports: [AuthModule, UsersModule],
+  imports: [AuthModule, UsersModule, FilesModule],
 })
 export class ImagesModule {}

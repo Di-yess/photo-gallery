@@ -8,6 +8,7 @@ import { green, red } from '@mui/material/colors';
 import { FC, useState } from 'react';
 import Map from 'src/components/Map/Map';
 import styles from 'src/styles/mainStyle';
+import { Photo } from 'src/types/photo';
 
 type Props = {
   image: Photo;

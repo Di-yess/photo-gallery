@@ -21,15 +21,39 @@ export class AuthService {
   ) {}
 
   async login(userDto: LoginUserDto) {
+    if (!userDto.email || !userDto.password) {
+      throw new HttpException(
+        'there is no email or password',
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    console.log(userDto);
+
     const user = await this.validateUser(userDto);
-    return this.generateToken(user);
+    const userInfo = await this.prisma.user.findFirst({
+      where: {
+        email: user.email,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        avatar: true,
+        images: true,
+      },
+    });
+    return { ...userInfo, ...(await this.generateToken(user)) };
   }
 
   async registration(userDto: CreateUserDto) {
     const { name, email, password } = userDto;
-    
+
     if (!name || !email || !password) {
-      throw new HttpException('You need to fill all fields.', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'You need to fill all fields.',
+        HttpStatus.BAD_REQUEST
+      );
     }
 
     const check = await this.usersService.getUserByEmail(userDto.email);
@@ -59,6 +83,8 @@ export class AuthService {
 
   private async validateUser(userDto: LoginUserDto) {
     const user = await this.usersService.getUserByEmail(userDto.email);
+    if (!user)
+      throw new HttpException('User does not exist', HttpStatus.BAD_REQUEST);
     const checkPassword = await bcrypt.compare(userDto.password, user.password);
 
     if (user && checkPassword) {

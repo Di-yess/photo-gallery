@@ -8,11 +8,14 @@ import {
   IconButton,
 } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { useAppSelector } from 'src/types/Apphooks';
 import styles from '../../styles/layoutStyle';
 
 const Layout = () => {
   const theme = createTheme();
   const navigate = useNavigate();
+  const status = useAppSelector((state) => state.user.status);
+  console.log('status', status);
 
   return (
     <ThemeProvider theme={theme}>
@@ -27,7 +30,11 @@ const Layout = () => {
             aria-label="text button group"
           >
             <Button onClick={() => navigate('/')}>Main</Button>
-            <Button onClick={() => navigate('/account')}>Sign in</Button>
+            {status !== 'fulfilled' ? (
+              <Button onClick={() => navigate('/login')}>Sign in</Button>
+            ) : (
+              <Button onClick={() => navigate('/account')}>Account</Button>
+            )}
           </ButtonGroup>
         </Box>
         <Outlet />

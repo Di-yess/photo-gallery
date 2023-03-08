@@ -1,5 +1,6 @@
+import { FilesService } from './../files/files.service';
 import { DeleteImageDto } from './dto/delete-image.dto';
-import { IUserRequest } from './../types/user.d';
+import { IUserRequest, IUserImage } from './../types/user.d';
 import { CreateImageDto } from './dto/create-image.dto';
 import { GetImagesDto } from './dto/get-images.dto';
 import { UsersService } from './../users/users.service';
@@ -10,7 +11,8 @@ import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 export class ImagesService {
   constructor(
     private readonly prisma: PrismaService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private filesService: FilesService
   ) {}
 
   // получить картинки со скипом
@@ -28,22 +30,27 @@ export class ImagesService {
     }
   }
 
-  async postImage(dto: CreateImageDto, req: IUserRequest) {
+  async postImage(
+    dto: CreateImageDto,
+    image: Express.Multer.File,
+    req: IUserRequest
+  ) {
     const { name, description, coordX, coordY } = dto;
     const { id: userId } = req.user;
+    
     if (!name || !description) {
       return new HttpException('Invalid', HttpStatus.BAD_REQUEST);
     }
+    const link = await this.filesService.createFile(image);
 
     try {
-      // получить изображение, сохранить и добавить в link
       // координаты минус
       if (!coordX || !coordY) {
         const newImage = await this.prisma.image.create({
           data: {
             name,
             description,
-            link: 'link',
+            link,
             userId,
           },
         });
@@ -54,9 +61,9 @@ export class ImagesService {
           data: {
             name,
             description,
-            link: 'link',
-            coordX: coordX,
-            coordY: coordY,
+            link,
+            coordX,
+            coordY,
             userId,
           },
         });

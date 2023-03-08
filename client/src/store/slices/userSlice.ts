@@ -1,9 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserInitState } from 'src/types/user';
+import { login } from '../asyncThunk/login';
 
-const initialState = {
+const initialState: UserInitState = {
   id: null,
   name: null,
+  email: null,
   avatar: { link: null },
+  images: null,
   status: null,
   error: null,
 };
@@ -15,6 +19,31 @@ const userSlice = createSlice({
     clearInfo(state) {
       state.id = null;
     },
+  },
+  extraReducers: (builder) => {
+    // login
+    builder.addCase(login.pending, (state) => {
+      state.status = 'loading';
+    });
+
+    builder.addCase(login.fulfilled, (state, action) => {
+      const { id, name, email, avatar, images } = action.payload;
+      state.id = id;
+      state.name = name;
+      state.email = email;
+      state.avatar = avatar;
+      state.images = images;
+      state.status = 'fulfilled';
+      state.error = null;
+    });
+
+    builder.addCase(
+      login.rejected,
+      (state, action: PayloadAction<string | any>) => {
+        state.status = 'rejected';
+        state.error = action.payload;
+      }
+    );
   },
 });
 

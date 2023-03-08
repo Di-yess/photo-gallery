@@ -15,3 +15,13 @@ export interface IUserRequest extends Request {
     name: string;
   };
 }
+
+export interface IUserImage extends Express.Multer.File {
+  user: {
+    id: number;
+    email: string;
+    name: string;
+    iat: number;
+    exp: number;
+  };
+}

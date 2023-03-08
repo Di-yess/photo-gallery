@@ -10,9 +10,15 @@ import {
   UseGuards,
   Req,
   Delete,
+  UploadedFile,
+  UseInterceptors,
+  ParseFilePipe,
+  FileTypeValidator,
+  MaxFileSizeValidator,
 } from '@nestjs/common';
 import { GetImagesDto } from './dto/get-images.dto';
 import { CreateImageDto } from './dto/create-image.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('images')
 export class ImagesController {
@@ -25,13 +31,26 @@ export class ImagesController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  postImage(@Body() dto: CreateImageDto, @Req() req: IUserRequest) {
-    return this.imagesService.postImage(dto, req);
+  @UseInterceptors(FileInterceptor('image'))
+  postImage(
+    @Body() dto: CreateImageDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 1 }),
+        ],
+      })
+    )
+    image: Express.Multer.File,
+    @Req() req: IUserRequest
+  ) {
+    return this.imagesService.postImage(dto, image, req);
   }
-  
+
   @UseGuards(JwtAuthGuard)
   @Delete()
   deleteImage(@Body() dto: DeleteImageDto, @Req() req: IUserRequest) {
-    return this.imagesService.deleteImage(dto,req)
+    return this.imagesService.deleteImage(dto, req);
   }
 }
