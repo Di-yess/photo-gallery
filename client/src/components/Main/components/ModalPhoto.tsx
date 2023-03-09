@@ -1,7 +1,7 @@
 import { Box } from '@mui/system';
 import { FC } from 'react';
 import { Photo } from 'src/types/photo';
-import styles from '../../../styles/mainStyle';
+import styles from 'src/styles/mainStyle';
 import PhotoInfo from './PhotoInfo';
 
 type Props = {

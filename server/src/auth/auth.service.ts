@@ -28,8 +28,6 @@ export class AuthService {
       );
     }
 
-    console.log(userDto);
-
     const user = await this.validateUser(userDto);
     const userInfo = await this.prisma.user.findFirst({
       where: {
@@ -66,10 +64,19 @@ export class AuthService {
 
     const hashPassword = await bcrypt.hash(userDto.password, 5);
     const user = await this.prisma.user.create({
-      data: { ...userDto, password: hashPassword },
+      data: { ...userDto, password: hashPassword, avatar: { create: {} } },
+      select: {
+        id: true,
+        name: true,
+        password: true,
+        email: true,
+        avatar: true,
+        images: true,
+      },
     });
-
-    return this.generateToken(user);
+    
+    const { password: userPassword, ...userWithoutPassword } = user;
+    return { ...userWithoutPassword, ...(await this.generateToken(user)) };
   }
 
   private async generateToken(user: IUser) {

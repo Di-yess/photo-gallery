@@ -93,7 +93,7 @@ const mainStyle = {
   },
 
   infoMenuIcon: {
-    fontSize: '27px',
+    fontSize: '25px',
   },
 
   modalPhotoBlur: {
@@ -126,8 +126,8 @@ const mainStyle = {
     display: 'flex',
     flexDirection: 'column',
     width: '90%',
-    minHeight: '35%',
-    margin: '1vh auto 1.5vh',
+    maxHeight: '40%',
+    margin: '1vh auto 2.5vh',
   },
 
   userAndAbout: {
@@ -141,6 +141,9 @@ const mainStyle = {
   postText: {
     width: '85%',
     margin: '7px auto 3px',
+    maxHeight: '15vh',
+    overflow: 'scroll',
+    ...scroll,
     fontSize: '12px',
     lineHeight: '130%',
   },
@@ -155,7 +158,17 @@ const mainStyle = {
   comments: {
     margin: '0 auto',
     width: '85%',
-    maxHeight: '50%',
+    maxHeight: '45%',
+    overflow: 'scroll',
+    ...scroll,
+  },
+
+  commentText: {
+    paddingBottom: '0.1vh',
+    fontSize: '12px',
+    lineHeight: '130%',
+    cursor: 'pointer',
+    maxHeight: '11vh',
     overflow: 'scroll',
     ...scroll,
   },

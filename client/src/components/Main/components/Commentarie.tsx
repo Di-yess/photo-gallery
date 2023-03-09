@@ -14,7 +14,7 @@ const Commentarie: FC<Props> = ({ comment }) => {
     <Paper elevation={2} sx={styles.commentPaper}>
       <Avatar
         src={comment.src}
-        alt="someone"
+        alt='someone'
         sx={{ width: '30px', height: '30px', marginRight: '0.5vw' }}
       />
       <Box sx={{ marginBottom: '0.75vh' }}>
@@ -23,7 +23,7 @@ const Commentarie: FC<Props> = ({ comment }) => {
         </Typography>
         <Typography
           onClick={() => setFullText((prev) => !prev)}
-          sx={{ fontSize: '12px', lineHeight: '130%', cursor: 'pointer' }}
+          sx={styles.commentText}
         >
           {comment.text.length > 50 && !fullText
             ? comment.text.slice(0, 50) + '...'

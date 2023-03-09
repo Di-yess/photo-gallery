@@ -57,7 +57,7 @@ model Like {
 
 model Avatar {
   id        Int      @id @default(autoincrement())
-  link      String
+  link      String?
   userId    Int      @unique
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)

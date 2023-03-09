@@ -1,24 +1,35 @@
 import { Image } from './user.d';
 
+export interface IUser {
+  id: number;
+  name: string;
+  avatar: { link: string | null };
+}
+
 export interface IUserToken {
   id: number;
   name: string;
   email: string;
-  avatar: { link: string } | null;
+  avatar: { link: string };
   images: Image[];
   token: string;
 }
 
-export interface IUserInfo {
+export interface IUserLogin {
   email: string;
   password: string;
+  navigate: NavigateFunction;
+}
+
+export interface IUserRegister extends IUserLogin {
+  name: string;
 }
 
 export type UserInitState = {
   id: number | null;
   name: string | null;
   email: string | null;
-  avatar: { link: string | null } | null;
+  avatar: { link: string | null };
   images: Image[] | null;
   status: string | null;
   error: string | null;

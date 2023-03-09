@@ -9,13 +9,12 @@ import {
 } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'src/types/Apphooks';
-import styles from '../../styles/layoutStyle';
+import styles from 'src/styles/layoutStyle';
 
 const Layout = () => {
   const theme = createTheme();
   const navigate = useNavigate();
   const status = useAppSelector((state) => state.user.status);
-  console.log('status', status);
 
   return (
     <ThemeProvider theme={theme}>
@@ -44,22 +43,3 @@ const Layout = () => {
 };
 
 export default Layout;
-
-/* <Stack
-        direction="row"
-        justifyContent="flex-end"
-        divider={
-          <Divider
-            orientation="vertical"
-            flexItem
-            sx={{ borderRightWidth: 2 }}
-          />
-        }
-      >
-        <Box sx={styles.navMenuItem} onClick={} >
-          <Typography variant="h5">Main</Typography>
-        </Box>
-        <Box sx={styles.navMenuItem}>
-          <Typography variant="h5">Sign in</Typography>
-        </Box>
-      </Stack> */

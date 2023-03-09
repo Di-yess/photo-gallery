@@ -22,7 +22,7 @@ const PhotoInfo: FC<Props> = ({ image }) => {
   return (
     <Box className="photoInfo" sx={styles.photoInfo}>
       <Box sx={styles.photoInfoMenu}>
-        <Typography fontSize="23px">{image.name}</Typography>
+        <Typography fontSize="24px">{image.name}</Typography>
         <Stack direction="row" spacing={1}>
           <Box display="flex" alignItems="center">
             <Typography

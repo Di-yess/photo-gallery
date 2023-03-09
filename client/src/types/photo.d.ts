@@ -1,3 +1,5 @@
+import { IUser } from './user';
+
 export type Photo = {
   id: number;
   name: string;
@@ -6,7 +8,12 @@ export type Photo = {
   y?: number;
 };
 
-export type Image = {
+export interface Image {
+  id: number;
+  link: string;
+}
+
+export interface IExtendedImage {
   id: number;
   name: string;
   description: string;
@@ -14,5 +21,15 @@ export type Image = {
   coordY: number;
   userId: number;
   createdAt: Date;
-  // user, comments, likes <----write all types
-};
+  user: IUser;
+  comments: IComment[];
+  likes: number;
+  likedBefore: boolean;
+}
+
+export interface IComment {
+  id: number;
+  text: string;
+  createdAt: Date;
+  user: IUser;
+}

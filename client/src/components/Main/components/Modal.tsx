@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import React, { FC } from 'react';
-import { useAppSelector } from 'src/types/Apphooks';
-import styles from '../../../styles/mainStyle';
+import { Photo } from 'src/types/photo';
+import styles from 'src/styles/mainStyle';
 import '.././Main.css';
 import CloseBtn from './CloseBtn';
 import ModalPhoto from './ModalPhoto';

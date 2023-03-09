@@ -1,15 +1,14 @@
-import { IUserToken, IUserLogin } from 'src/types/user.d';
-import { API } from './../../constants/api';
+import { API } from 'src/constants/api';
+import { IUserRegister, IUserToken } from 'src/types/user.d';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-export const login = createAsyncThunk(
-  '/user/login',
-  async (userInfo: IUserLogin, { dispatch, rejectWithValue }) => {
+export const register = createAsyncThunk(
+  'user/register',
+  async (userInfo: IUserRegister, { dispatch, rejectWithValue }) => {
     const { navigate, ...info } = userInfo;
     try {
       const { data } = await axios<IUserToken>({
-        url: API + '/auth/login',
+        url: API + '/auth/registration',
         method: 'POST',
         data: info,
       });

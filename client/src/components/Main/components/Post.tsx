@@ -12,7 +12,7 @@ const Post: FC<Props> = ({ user }) => {
       <Box sx={styles.userAndAbout}>
         <Avatar
           src={user.src}
-          alt="someone"
+          alt='someone'
           sx={{ width: '50px', height: '50px' }}
         />
         <Box sx={{ marginLeft: '1vw' }}>
@@ -26,13 +26,13 @@ const Post: FC<Props> = ({ user }) => {
       </Box>
       <Typography sx={styles.postText}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia fugit
-        facilis elit. Quia fugit elit. consectetur adipisicing
-      </Typography>
+        facilis elit. Quia fugit elit.
+    </Typography>
       <Box sx={styles.postInfo}>
-        <Typography sx={{ fontSize: '12px' }} color="#a7a7a7">
+        <Typography sx={{ fontSize: '12px' }} color='#a7a7a7'>
           1000 views
         </Typography>
-        <Typography sx={{ fontSize: '12px' }} color="#a7a7a7">
+        <Typography sx={{ fontSize: '12px' }} color='#a7a7a7'>
           {user.postedAt}
         </Typography>
       </Box>
