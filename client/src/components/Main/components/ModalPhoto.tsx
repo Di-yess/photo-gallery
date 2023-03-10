@@ -1,21 +1,24 @@
 import { Box } from '@mui/system';
 import { FC } from 'react';
-import { Photo } from 'src/types/photo';
+import { API } from 'src/constants/api';
 import styles from 'src/styles/mainStyle';
+import { IExtendedImage } from 'src/types/photo';
 import PhotoInfo from './PhotoInfo';
 
 type Props = {
-  image: Photo;
+  image: IExtendedImage;
 };
 
 const ModalPhoto: FC<Props> = ({ image }) => {
   return (
     <Box sx={styles.modalPhoto}>
       <img
-        src={image.src}
-        srcSet={`${image.src}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+        src={API + '/' + image.link}
+        srcSet={`${
+          API + '/' + image.link
+        }?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
         alt={image.name}
-        loading="lazy"
+        loading='lazy'
       />
       <PhotoInfo image={image} />
     </Box>

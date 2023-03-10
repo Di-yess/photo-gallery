@@ -18,13 +18,51 @@ export class ImagesService {
   // получить картинки со скипом
   async getImages(dto: GetImagesDto) {
     const counter = dto.counter;
-
+    
     try {
       const images = await this.prisma.image.findMany({
-        skip: 11 * counter,
+        skip: 11 * counter || 0,
         take: 11,
       });
       return images;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  // image by id
+  async getImageById(id: string) {
+    try {
+      const image = await this.prisma.image.findFirst({
+        where: { id: Number(id) },
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              avatar: { select: { link: true } },
+            },
+          },
+          comments: {
+            select: {
+              id: true,
+              text: true,
+              createdAt: true,
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  avatar: { select: { link: true } },
+                },
+              },
+            },
+          },
+        },
+      });
+      if (!image) {
+        return new HttpException('Image not found', HttpStatus.NOT_FOUND);
+      }
+      return image;
     } catch (err) {
       throw err;
     }
@@ -37,7 +75,7 @@ export class ImagesService {
   ) {
     const { name, description, coordX, coordY } = dto;
     const { id: userId } = req.user;
-    
+
     if (!name || !description) {
       return new HttpException('Invalid', HttpStatus.BAD_REQUEST);
     }

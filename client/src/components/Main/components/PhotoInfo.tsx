@@ -1,17 +1,17 @@
 import {
   Favorite as FavoriteIcon,
   Room as RoomIcon,
-  Share as ShareIcon,
+  Share as ShareIcon
 } from '@mui/icons-material';
 import { Box, Stack, Typography } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import { FC, useState } from 'react';
 import Map from 'src/components/Map/Map';
 import styles from 'src/styles/mainStyle';
-import { Photo } from 'src/types/photo';
+import { IExtendedImage } from 'src/types/photo';
 
 type Props = {
-  image: Photo;
+  image: IExtendedImage;
 };
 
 const PhotoInfo: FC<Props> = ({ image }) => {
@@ -44,7 +44,7 @@ const PhotoInfo: FC<Props> = ({ image }) => {
             />
           </Box>
           <ShareIcon sx={styles.infoMenuIcon} />
-          {showMap && <Map x={image.x || 51.505} y={image.y || -0.09} />}
+          {showMap && <Map x={image.coordX || 51.505} y={image.coordY || -0.09} />}
           <RoomIcon
             fontSize="medium"
             sx={{

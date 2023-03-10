@@ -11,7 +11,7 @@ type Props = {
 const Map: FC<Props> = ({ x, y }) => {
   return (
     <Box sx={styles.mapForm}>
-      <MapContainer center={[x, y]} zoom={13} scrollWheelZoom={false}>
+      <MapContainer center={[x, y]} zoom={13} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

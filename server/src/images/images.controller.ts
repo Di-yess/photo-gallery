@@ -15,6 +15,7 @@ import {
   ParseFilePipe,
   FileTypeValidator,
   MaxFileSizeValidator,
+  Param,
 } from '@nestjs/common';
 import { GetImagesDto } from './dto/get-images.dto';
 import { CreateImageDto } from './dto/create-image.dto';
@@ -27,6 +28,11 @@ export class ImagesController {
   @Get()
   getImages(@Body() dto: GetImagesDto) {
     return this.imagesService.getImages(dto);
+  }
+
+  @Get(':id')
+  getImageById(@Param('id') id: string) {
+    return this.imagesService.getImageById(id);
   }
 
   @UseGuards(JwtAuthGuard)

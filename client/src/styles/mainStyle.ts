@@ -14,6 +14,7 @@ const mainStyle = {
     },
     gridAutoRows: { sm: '200px', xs: '250px' },
   },
+  
 
   gridItem: {
     cursor: 'pointer',

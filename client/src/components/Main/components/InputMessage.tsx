@@ -1,14 +1,16 @@
-import { Box, Input } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import styles from 'src/styles/mainStyle';
+import { Box, Input } from '@mui/material';
 import { FC, useState } from 'react';
-import { Comment } from 'src/types/comment';
+import styles from 'src/styles/mainStyle';
+import { IComment } from 'src/types/photo';
+import { fetchNewComment } from 'src/utils/fetches';
 
 type Props = {
-  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+  imageId: number;
+  setComments: React.Dispatch<React.SetStateAction<IComment[]>>;
 };
 
-const InputMessage: FC<Props> = ({ setComments }) => {
+const InputMessage: FC<Props> = ({ imageId, setComments }) => {
   const [message, setMessage] = useState('');
   return (
     <Box sx={styles.inputMessage}>
@@ -17,20 +19,16 @@ const InputMessage: FC<Props> = ({ setComments }) => {
         onChange={(e) => {
           setMessage(e.target.value);
         }}
-        placeholder="Leave your comment"
+        placeholder='Leave your comment'
         sx={{ fontSize: '14px', width: '90%', mr: 1 }}
       />
       <SendIcon
         sx={{ cursor: 'pointer' }}
-        onClick={() => {
-          console.log(message);
-          setComments((prev) => [
-            ...prev,
-            { ...prev[0], text: message, id: Date.now() },
-          ]);
+        onClick={async () => {
+          await fetchNewComment(message.trim(), imageId, setComments);
           setMessage('');
         }}
-        fontSize="small"
+        fontSize='small'
       />
     </Box>
   );
