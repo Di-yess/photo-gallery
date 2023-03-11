@@ -14,7 +14,6 @@ const mainStyle = {
     },
     gridAutoRows: { sm: '200px', xs: '250px' },
   },
-  
 
   gridItem: {
     cursor: 'pointer',
@@ -30,6 +29,7 @@ const mainStyle = {
   },
 
   modal: {
+    padding: '15px 0 10px',
     left: '50%',
     top: '50%',
     width: { sm: '65vw', xs: '90vw' },
@@ -42,7 +42,7 @@ const mainStyle = {
     justifyContent: 'space-evenly',
     position: 'fixed',
     overflow: 'hidden',
-    backgroundColor: 'black',
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
     borderRadius: '10px',
     zIndex: '99',
   },
@@ -54,15 +54,15 @@ const mainStyle = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    border: '1px solid black',
     position: 'relative',
     overflow: 'hidden',
     cursor: 'pointer',
     img: {
-      width: '100%',
+      // width: '100%',
       height: '95%',
-      objectFit: 'fill',
-      borderRadius: '10px',
+      objectFit: 'contain',
+      borderRadius: '5px',
+      overflow: 'hidden',
     },
 
     '&:hover .photoInfo': {

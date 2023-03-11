@@ -9,7 +9,7 @@ import * as bcrypt from 'bcryptjs';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LoginUserDto } from 'src/users/dto/login-user.dto';
 import { PrismaService } from './../prisma/prisma.service';
-import { IUser } from './../types/user.d';
+import { IUser, IUserRequest } from './../types/user.d';
 import { UsersService } from './../users/users.service';
 
 @Injectable()
@@ -19,6 +19,38 @@ export class AuthService {
     private jwtService: JwtService,
     private usersService: UsersService
   ) {}
+
+  // self User
+  async selfUser(req: IUserRequest) {
+    const { id } = req.user;
+    try {
+      const userInfo = await this.prisma.user.findFirst({
+        where: { id },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          avatar: { select: { link: true } },
+          images: true,
+        },
+      });
+
+      if (!userInfo) {
+        return new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }
+
+      const { id: userId, email, name } = userInfo;
+      const newToken = await this.generateToken({
+        id: userId,
+        email,
+        name,
+      });
+
+      return { ...userInfo, ...newToken };
+    } catch (err) {
+      throw err;
+    }
+  }
 
   async login(userDto: LoginUserDto) {
     if (!userDto.email || !userDto.password) {
@@ -37,7 +69,7 @@ export class AuthService {
         id: true,
         name: true,
         email: true,
-        avatar: true,
+        avatar: { select: { link: true } },
         images: true,
       },
     });
@@ -74,7 +106,7 @@ export class AuthService {
         images: true,
       },
     });
-    
+
     const { password: userPassword, ...userWithoutPassword } = user;
     return { ...userWithoutPassword, ...(await this.generateToken(user)) };
   }

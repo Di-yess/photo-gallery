@@ -12,7 +12,12 @@ export const fetchFullImage = async (
   setFullImage: React.Dispatch<React.SetStateAction<IFetchExtendedImage>>
 ) => {
   try {
-    const { data } = await axios.get<IExtendedImage>(`${API}/images/${id}`);
+    const { data } = await axios<IExtendedImage>({
+      url: `${API}/images/${id}`,
+      headers: {
+        Authorization: localStorage.getItem('token') || 'Bearer 12414',
+      },
+    });
     setFullImage(data);
   } catch (err) {
     setFullImage('error');
@@ -26,7 +31,6 @@ export const fetchNewComment = async (
   setComments: React.Dispatch<React.SetStateAction<IComment[]>>
 ) => {
   try {
-    console.log(imageId, text);
     const { data } = await axios<IComment>({
       url: API + '/comments',
       method: 'POST',
@@ -37,6 +41,22 @@ export const fetchNewComment = async (
     });
 
     setComments((prev) => [...prev, data]);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Liked 
+export const fetchLike = async (imageId: number, liked: boolean) => {
+  try {
+    await axios({
+      url: API + '/likes',
+      method: 'POST',
+      data: { imageId, liked },
+      headers: {
+        Authorization: localStorage.getItem('token') || '',
+      },
+    });
   } catch (err) {
     console.log(err);
   }

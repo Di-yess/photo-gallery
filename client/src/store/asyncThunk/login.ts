@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const login = createAsyncThunk(
-  '/user/login',
+  '/users/login',
   async (userInfo: IUserLogin, { dispatch, rejectWithValue }) => {
     const { navigate, ...info } = userInfo;
     try {

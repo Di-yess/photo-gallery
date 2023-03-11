@@ -1,3 +1,4 @@
+import { JwtAuthId } from './../auth/jwt-id.guard';
 import { DeleteImageDto } from './dto/delete-image.dto';
 import { IUserRequest } from './../types/user.d';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
@@ -30,9 +31,10 @@ export class ImagesController {
     return this.imagesService.getImages(dto);
   }
 
+  @UseGuards(JwtAuthId)
   @Get(':id')
-  getImageById(@Param('id') id: string) {
-    return this.imagesService.getImageById(id);
+  getImageById(@Param('id') id: string, @Req() req: IUserRequest) {
+    return this.imagesService.getImageById(id, req);
   }
 
   @UseGuards(JwtAuthGuard)

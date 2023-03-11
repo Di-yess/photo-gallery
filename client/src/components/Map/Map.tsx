@@ -14,19 +14,9 @@ const Map: FC<Props> = ({ x, y }) => {
       <MapContainer center={[x, y]} zoom={13} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <Marker position={[51.505, -0.09]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-        <Marker position={[51.505, -0.5]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-        <Marker position={[51.505, -1]}>
+        <Marker position={[x || 51.505, y || -1]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>

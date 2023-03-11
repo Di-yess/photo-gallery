@@ -2,6 +2,7 @@ import { Box, ImageListItem, useMediaQuery, useTheme } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { API } from 'src/constants/api';
 import { imageThunk } from 'src/store/asyncThunk/imageThunk';
+import { selfUserThunk } from 'src/store/asyncThunk/selfUserThunk';
 import { useAppDispatch, useAppSelector } from 'src/types/Apphooks';
 import { Image } from 'src/types/photo';
 import styles from '../../styles/mainStyle';
@@ -13,12 +14,14 @@ const Main = () => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [image, setImage] = useState<Image | null>(null);
   const ref = useRef<HTMLElement | null>(null);
+  const refCounter = useRef(0);
 
   const dispatch = useAppDispatch();
-  const { counter, images } = useAppSelector((state) => state.images);
+  const { images } = useAppSelector((state) => state.images);
 
   useEffect(() => {
-    dispatch(imageThunk(counter));
+    dispatch(imageThunk(refCounter));
+    dispatch(selfUserThunk());
   }, [dispatch]);
 
   return (

@@ -1,3 +1,4 @@
+import { IUserRequest } from './../types/user.d';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DeleteUserDto } from './dto/delete-user.dto';
@@ -11,6 +12,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 
@@ -25,6 +27,12 @@ export class UsersController {
   getAllUsers() {
     return this.usersService.getAllUsers();
   }
+
+  // @UseGuards(JwtAuthGuard)
+  // @Get('self')
+  // selfUser(@Req() req: IUserRequest) {
+  //   return this.usersService.selfUser(req);
+  // }
 
   @Get(':id')
   getUser(@Param('id') id: string) {
@@ -42,6 +50,7 @@ export class UsersController {
     return this.usersService.updateUser(dto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete()
   deleteUser(@Body() deleteUserDto: DeleteUserDto) {
     return this.usersService.deleteUser(deleteUserDto);

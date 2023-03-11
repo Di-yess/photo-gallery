@@ -10,7 +10,7 @@ export interface IUserToken {
   id: number;
   name: string;
   email: string;
-  avatar: { link: string };
+  avatar: { link: string | null };
   images: Image[];
   token: string;
 }

@@ -3,7 +3,7 @@ import { IUserRegister, IUserToken } from 'src/types/user.d';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 export const register = createAsyncThunk(
-  'user/register',
+  'users/register',
   async (userInfo: IUserRegister, { dispatch, rejectWithValue }) => {
     const { navigate, ...info } = userInfo;
     try {

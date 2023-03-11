@@ -13,7 +13,6 @@ export class CommentsService {
     const { id: userId } = req.user;
 
     if (!imageId || !text.trim()) {
-      console.log(imageId, text);
       return new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
 

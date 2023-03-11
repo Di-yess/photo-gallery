@@ -1,24 +1,22 @@
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { FilesService } from './../files/files.service';
-import { DeleteImageDto } from './dto/delete-image.dto';
-import { IUserRequest, IUserImage } from './../types/user.d';
-import { CreateImageDto } from './dto/create-image.dto';
-import { GetImagesDto } from './dto/get-images.dto';
-import { UsersService } from './../users/users.service';
 import { PrismaService } from './../prisma/prisma.service';
-import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
+import { IUserRequest } from './../types/user.d';
+import { CreateImageDto } from './dto/create-image.dto';
+import { DeleteImageDto } from './dto/delete-image.dto';
+import { GetImagesDto } from './dto/get-images.dto';
 
 @Injectable()
 export class ImagesService {
   constructor(
     private readonly prisma: PrismaService,
-    private usersService: UsersService,
     private filesService: FilesService
   ) {}
 
   // получить картинки со скипом
   async getImages(dto: GetImagesDto) {
     const counter = dto.counter;
-    
+
     try {
       const images = await this.prisma.image.findMany({
         skip: 11 * counter || 0,
@@ -31,7 +29,7 @@ export class ImagesService {
   }
 
   // image by id
-  async getImageById(id: string) {
+  async getImageById(id: string, req: IUserRequest) {
     try {
       const image = await this.prisma.image.findFirst({
         where: { id: Number(id) },
@@ -57,12 +55,30 @@ export class ImagesService {
               },
             },
           },
+          _count: {
+            select: {
+              likes: true,
+            },
+          },
         },
       });
+      const likedBefore =
+        req.user.id !== 0
+          ? Boolean(
+              await this.prisma.like.findFirst({
+                where: {
+                  userId: req.user.id,
+                  imageId: Number(id),
+                },
+              })
+            )
+          : false;
+
       if (!image) {
         return new HttpException('Image not found', HttpStatus.NOT_FOUND);
       }
-      return image;
+
+      return { ...image, likedBefore };
     } catch (err) {
       throw err;
     }
@@ -115,7 +131,6 @@ export class ImagesService {
   async deleteImage(dto: DeleteImageDto, req: IUserRequest) {
     const imageId = dto?.id;
     const userId = req.user.id;
-    console.log(imageId, userId);
 
     if (!imageId) throw new HttpException('Invalid', HttpStatus.BAD_REQUEST);
 

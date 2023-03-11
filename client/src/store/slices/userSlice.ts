@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserInitState } from 'src/types/user';
 import { login } from '../asyncThunk/login';
 import { register } from '../asyncThunk/register';
+import { selfUserThunk } from './../asyncThunk/selfUserThunk';
 
 const initialState: UserInitState = {
   id: null,
@@ -26,6 +27,8 @@ const userSlice = createSlice({
       state.images = null;
       state.status = null;
       state.error = null;
+
+      localStorage.removeItem('token');
     },
   },
 
@@ -76,6 +79,31 @@ const userSlice = createSlice({
       (state, action: PayloadAction<string | any>) => {
         state.status = 'rejected';
         state.error = action.payload;
+      }
+    );
+
+    //self user
+    builder.addCase(selfUserThunk.pending, (state) => {
+      state.status = 'loading';
+    });
+
+    builder.addCase(selfUserThunk.fulfilled, (state, action) => {
+      const { id, name, email, avatar, images } = action.payload;
+      state.id = id;
+      state.name = name;
+      state.email = email;
+      state.avatar = avatar;
+      state.images = images;
+      state.status = 'fulfilled';
+      state.error = null;
+    });
+
+    builder.addCase(
+      selfUserThunk.rejected,
+      (state, action: PayloadAction<string | any>) => {
+        state.status = 'rejected';
+        state.error =
+          typeof action.payload === 'string' ? action.payload : 'Unknow error';
       }
     );
   },

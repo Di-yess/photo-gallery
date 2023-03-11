@@ -5,7 +5,6 @@ import { imageThunk } from '../asyncThunk/imageThunk';
 
 const initialState: ImagesInitState = {
   images: null,
-  counter: 0,
   status: null,
   error: null,
 };
@@ -21,7 +20,6 @@ const imageSlice = createSlice({
     });
     builder.addCase(imageThunk.fulfilled, (state, action) => {
       state.images = action.payload;
-      state.counter = state.counter + 1;
       state.status = 'fulfilled';
       state.error = null;
     });

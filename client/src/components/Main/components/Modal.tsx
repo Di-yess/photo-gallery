@@ -15,7 +15,6 @@ type Props = {
 };
 
 const Modal: FC<Props> = ({ image, setImage, blurElement }) => {
-  // const user = useAppSelector((state) => state.user);
   const [fullImage, setFullImage] = useState<
     IExtendedImage | 'loading' | 'error'
   >('loading');

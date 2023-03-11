@@ -10,7 +10,6 @@ export type Photo = {
 
 export type ImagesInitState = {
   images: Image[] | null;
-  counter: number;
   status: string | null;
   error: string | null;
 };
@@ -32,7 +31,7 @@ export interface IExtendedImage {
   createdAt: Date;
   user: IUser;
   comments: IComment[];
-  likes: number;
+  _count: { likes: number };
   likedBefore: boolean;
 }
 

@@ -5,16 +5,17 @@ import { API } from 'src/constants/api';
 
 export const imageThunk = createAsyncThunk(
   '/images/get',
-  async (counter: number, { rejectWithValue }) => {
+  async (refCounter: React.MutableRefObject<number>, { rejectWithValue }) => {
     try {
       const { data } = await axios<Image[]>({
         url: API + '/images',
         method: 'GET',
-        data: { counter: 'test' },
-      }); 
+        // data: { counter: 'test' },
+      });
+      refCounter.current = refCounter.current + 1;
       return data;
     } catch (err) {
       return rejectWithValue(err);
     }
-  } 
+  }
 );
