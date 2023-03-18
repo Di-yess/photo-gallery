@@ -28,12 +28,6 @@ export class UsersController {
     return this.usersService.getAllUsers();
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Get('self')
-  // selfUser(@Req() req: IUserRequest) {
-  //   return this.usersService.selfUser(req);
-  // }
-
   @Get(':id')
   getUser(@Param('id') id: string) {
     return this.usersService.getUserById(id);

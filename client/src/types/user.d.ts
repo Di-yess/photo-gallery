@@ -1,3 +1,4 @@
+import { IExtendedImage } from 'src/types/photo';
 import { Image } from './user.d';
 
 export interface IUser {
@@ -30,7 +31,7 @@ export type UserInitState = {
   name: string | null;
   email: string | null;
   avatar: { link: string | null };
-  images: Image[] | null;
+  images: IExtendedImage[] | null;
   status: string | null;
   error: string | null;
 };

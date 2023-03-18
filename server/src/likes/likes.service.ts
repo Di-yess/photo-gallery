@@ -23,7 +23,7 @@ export class LikesService {
         const newLike = await this.prisma.like.create({
           data: {
             imageId,
-            userId,
+            userId, 
           },
         });
         return newLike;

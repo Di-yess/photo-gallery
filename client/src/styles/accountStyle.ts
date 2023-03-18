@@ -72,5 +72,65 @@ const styles = {
     ...commonStyles.flex,
     flexDirection: 'column',
   },
+
+  accountImages: {
+    width: `${210 + 210 * 1.5 + 20}px`,
+    py: 2,
+    ...commonStyles.flex,
+    gap: 2.5,
+    flexWrap: 'wrap',
+    minHeight: '30vh',
+  },
+
+  userImage: {
+    width: '150px',
+    height: '150px',
+    borderRadius: '10px',
+    overflow: 'hidden',
+    position: 'relative',
+    cursor: 'pointer',
+    img: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+    },
+    '&:hover .editImage': {
+      opacity: 1,
+    },
+  },
+
+  editImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    opacity: 0,
+    transition: '0.15s all ease-in-out',
+    background:
+      'linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.25) 200%)',
+  },
+
+  imageOptions: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    gap: '3px',
+    boxSizing: 'border-box',
+    padding: '8px',
+    width: '100%',
+    height: '100%',
+    img: {
+      width: '19.5px',
+      height: '19.5px',
+    },
+  },
+
+  imageOptionsDescription:{
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    width: '100%',
+  }
 };
 export default styles;

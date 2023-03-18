@@ -57,8 +57,8 @@ export class ImagesController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete()
-  deleteImage(@Body() dto: DeleteImageDto, @Req() req: IUserRequest) {
-    return this.imagesService.deleteImage(dto, req);
+  @Delete(':id')
+  deleteImage(@Param('id') id: string, @Req() req: IUserRequest) {
+    return this.imagesService.deleteImage(Number(id), req);
   }
 }

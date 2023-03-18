@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserInitState } from 'src/types/user';
+import { deleteImageThunk } from '../asyncThunk/deleteImageThunk';
 import { login } from '../asyncThunk/login';
 import { register } from '../asyncThunk/register';
 import { selfUserThunk } from './../asyncThunk/selfUserThunk';
@@ -106,6 +107,14 @@ const userSlice = createSlice({
           typeof action.payload === 'string' ? action.payload : 'Unknow error';
       }
     );
+
+    //delete image
+    builder.addCase(deleteImageThunk.pending, (state) => {});
+    builder.addCase(deleteImageThunk.fulfilled, (state, { payload }) => {
+      state.images =
+        state.images?.filter((image) => image.id !== payload) || state.images;
+    });
+    builder.addCase(deleteImageThunk.rejected, (state, action) => {});
   },
 });
 

@@ -128,27 +128,27 @@ export class ImagesService {
     }
   }
 
-  async deleteImage(dto: DeleteImageDto, req: IUserRequest) {
-    const imageId = dto?.id;
+  async deleteImage(imageId: number, req: IUserRequest) {
     const userId = req.user.id;
-
     if (!imageId) throw new HttpException('Invalid', HttpStatus.BAD_REQUEST);
 
     try {
-      const image = await this.prisma.image.findFirst({
+      const image = await this.prisma.image.deleteMany({
         where: {
           id: imageId,
+          userId,
         },
       });
-
-      if (image.userId === userId) {
-        await this.prisma.image.delete({
-          where: {
-            id: imageId,
-          },
-        });
-        return 'image deleted successfully';
-      } else {
+      if (image) return 'image deleted successfully';
+      // if (image.userId === userId) {
+      //   await this.prisma.image.delete({
+      //     where: {
+      //       id: imageId,
+      //     },
+      //   });
+      //   return 'image deleted successfully';
+      // }
+      else {
         return new HttpException('you cannot delete', HttpStatus.BAD_REQUEST);
       }
     } catch (err) {
