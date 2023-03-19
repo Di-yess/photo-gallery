@@ -78,6 +78,7 @@ const styles = {
     py: 2,
     ...commonStyles.flex,
     gap: 2.5,
+    position: 'relative',
     flexWrap: 'wrap',
     minHeight: '30vh',
   },
@@ -126,11 +127,37 @@ const styles = {
     },
   },
 
-  imageOptionsDescription:{
+  imageOptionsDescription: {
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     width: '100%',
-  }
+  },
+
+  confirmDeleteImage: {
+    position: 'absolute',
+    p: 2,
+    width: '70%',
+    height: '30%',
+    zIndex: 99,
+    ...commonStyles.flex,
+  },
+
+  confirmBody: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    gap: 2,
+  },
+
+  confirmBodyButtons: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    width: '100%',
+    pr: 10,
+    gap: 1,
+  },
 };
 export default styles;

@@ -5,8 +5,10 @@ import ShareIcon from '@mui/icons-material/Share';
 import styles from 'src/styles/accountStyle';
 import { grey, red } from '@mui/material/colors';
 import { Box } from '@mui/system';
+import { useAppSelector } from 'src/types/Apphooks';
 
 const Statistics = () => {
+  const images = useAppSelector((state) => state.user.images);
   return (
     <Paper elevation={2} sx={styles.statistics}>
       <Stack direction='row' sx={styles.icons}>
@@ -15,7 +17,9 @@ const Statistics = () => {
           <VisibilityIcon sx={{ fontSize: '25px', color: grey[500] }} />
         </Box>
         <Box sx={styles.icon}>
-          <Typography mr={0.4}>1</Typography>
+          <Typography mr={0.4}>
+            {images && images.reduce((acc, el) => acc + el['_count'].likes, 0)}
+          </Typography>
           <FavoriteIcon sx={{ fontSize: '25px', color: red[600] }} />
         </Box>
         <Box sx={styles.icon}>

@@ -31,7 +31,23 @@ export class AuthService {
           name: true,
           email: true,
           avatar: { select: { link: true } },
-          images: true,
+          images: {
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              link: true,
+              coordX: true,
+              coordY: true,
+              userId: true,
+              createdAt: true,
+              _count: {
+                select: {
+                  likes: true,
+                },
+              },
+            },
+          },
         },
       });
 
