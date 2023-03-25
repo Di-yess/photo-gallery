@@ -89,15 +89,18 @@ export class ImagesService {
     image: Express.Multer.File,
     req: IUserRequest
   ) {
+    console.log(dto);
+    console.log(image);
     const { name, description, coordX, coordY } = dto;
     const { id: userId } = req.user;
 
     if (!name || !description) {
       return new HttpException('Invalid', HttpStatus.BAD_REQUEST);
     }
-    const link = await this.filesService.createFile(image);
+    
 
     try {
+      const link = await this.filesService.createFile(image);
       // координаты минус
       if (!coordX || !coordY) {
         const newImage = await this.prisma.image.create({

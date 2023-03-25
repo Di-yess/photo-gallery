@@ -2,11 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 import { ImagesInitState } from 'src/types/photo';
 import { errorGuard } from 'src/utils/typeGuards';
 import { imageThunk } from '../asyncThunk/imageThunk';
+import { uploadImageThunk } from '../asyncThunk/uploadImageThunk';
 
 const initialState: ImagesInitState = {
   images: null,
   status: null,
   error: null,
+  uploadImage: {
+    status: null,
+    error: null,
+  },
 };
 
 const imageSlice = createSlice({
@@ -28,6 +33,24 @@ const imageSlice = createSlice({
       state.status = 'rejected';
       state.error =
         typeof typedError === 'string' ? typedError : typedError.message;
+    });
+
+    // upload image
+    builder.addCase(uploadImageThunk.pending, (state) => {
+      state.uploadImage.status = 'loading';
+      state.uploadImage.error = null;
+    });
+    builder.addCase(uploadImageThunk.fulfilled, (state) => {
+      state.uploadImage.status = 'fulfilled';
+      state.uploadImage.error = null;
+    });
+    builder.addCase(uploadImageThunk.rejected, (state, { payload }) => {
+      state.uploadImage.status = 'rejected';
+      if (typeof payload === 'string') {
+        state.uploadImage.error = payload;
+      } else {
+        state.uploadImage.error = 'unknown error';
+      }
     });
   },
 });

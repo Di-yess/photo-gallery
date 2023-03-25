@@ -5,11 +5,13 @@ import { API } from 'src/constants/api';
 export const deleteImageThunk = createAsyncThunk(
   '/images/delete',
   async (id: number, { rejectWithValue }) => {
-    return id;
     try {
       await axios({
         url: `${API}/images/${id}`,
         method: 'DELETE',
+        headers: {
+          Authorization: localStorage.getItem('token') || '',
+        },
       });
       return id;
     } catch (err) {

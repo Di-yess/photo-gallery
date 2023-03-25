@@ -8,10 +8,21 @@ export type Photo = {
   y?: number;
 };
 
+export type ImageUploadInfo = {
+  name: string;
+  description: string;
+  x: string;
+  y: string;
+};
+
 export type ImagesInitState = {
   images: Image[] | null;
   status: string | null;
   error: string | null;
+  uploadImage: {
+    status: string | null;
+    error: string | null;
+  };
 };
 
 export interface Image {
