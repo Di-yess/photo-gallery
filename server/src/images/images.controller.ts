@@ -26,7 +26,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class ImagesController {
   constructor(private imagesService: ImagesService) {}
 
-  @Get()
+  @Post('/all')
   getImages(@Body() dto: GetImagesDto) {
     return this.imagesService.getImages(dto);
   }

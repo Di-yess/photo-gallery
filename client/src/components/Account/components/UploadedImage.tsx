@@ -6,6 +6,9 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+
+import { Clear } from '@mui/icons-material';
+
 import { useState } from 'react';
 import { uploadImageThunk } from 'src/store/asyncThunk/uploadImageThunk';
 import styles from 'src/styles/accountStyle';
@@ -14,6 +17,7 @@ import { ImageUploadInfo } from 'src/types/photo';
 
 type Props = {
   imageFile: File;
+  setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
 };
 
 const imageInfoInit: ImageUploadInfo = {
@@ -23,7 +27,7 @@ const imageInfoInit: ImageUploadInfo = {
   y: '',
 };
 
-const UploadedImage = ({ imageFile }: Props) => {
+const UploadedImage = ({ imageFile, setImageFile }: Props) => {
   const dispatch = useAppDispatch();
   const { status, error } = useAppSelector((state) => state.images.uploadImage);
   const [imageInfo, setImageInfo] = useState<ImageUploadInfo>(imageInfoInit);
@@ -97,6 +101,15 @@ const UploadedImage = ({ imageFile }: Props) => {
         <Box>
           {status === 'loading' && <CircularProgress />}
           {error}
+        </Box>
+
+        <Box
+          sx={{ position: 'absolute', top: 8, right: 10, cursor: 'pointer' }}
+          onClick={() => {
+            setImageFile(null);
+          }}
+        >
+          <Clear />
         </Box>
       </Box>
     </Paper>

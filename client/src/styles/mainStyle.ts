@@ -41,7 +41,6 @@ const mainStyle = {
     alignItems: 'center',
     justifyContent: 'space-evenly',
     position: 'fixed',
-    overflow: 'hidden',
     backgroundColor: 'rgba(0, 0, 0, 0.9)',
     borderRadius: '10px',
     zIndex: '99',
@@ -202,6 +201,15 @@ const mainStyle = {
     display: 'flex',
     alignItems: 'center',
     position: 'absolute',
+  },
+
+  navigationBtns: {
+    position: 'absolute',
+    width: '115%',
+    minWidth: { md: 'calc(100% + 80px)' },
+    display: 'flex',
+    justifyContent: 'space-between',
+    zIndex: -1,
   },
 };
 

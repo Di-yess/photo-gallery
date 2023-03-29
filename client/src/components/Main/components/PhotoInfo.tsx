@@ -5,7 +5,7 @@ import {
 } from '@mui/icons-material';
 import { Box, Stack, Typography } from '@mui/material';
 import { green, red } from '@mui/material/colors';
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import Map from 'src/components/Map/Map';
 import styles from 'src/styles/mainStyle';
 import { useAppSelector } from 'src/types/Apphooks';
@@ -21,6 +21,11 @@ const PhotoInfo: FC<Props> = ({ image }) => {
   const [liked, setLiked] = useState(image.likedBefore);
   const [showMap, setShowMap] = useState(false);
   const [likeCount, setLikeCount] = useState(image._count.likes);
+
+  useEffect(() => {
+    setLiked(image.likedBefore);
+    setLikeCount(image._count.likes);
+  }, [image]);
 
   const checkUser = useAppSelector((state) => state.user.id);
 

@@ -15,7 +15,7 @@ export const fetchFullImage = async (
     const { data } = await axios<IExtendedImage>({
       url: `${API}/images/${id}`,
       headers: {
-        Authorization: localStorage.getItem('token') || 'Bearer 12414',
+        Authorization: localStorage.getItem('token'),
       },
     });
     setFullImage(data);
@@ -46,7 +46,7 @@ export const fetchNewComment = async (
   }
 };
 
-// Liked 
+// Liked
 export const fetchLike = async (imageId: number, liked: boolean) => {
   try {
     await axios({

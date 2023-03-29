@@ -16,12 +16,18 @@ export class ImagesService {
   // получить картинки со скипом
   async getImages(dto: GetImagesDto) {
     const counter = dto.counter;
+    console.log(dto);
 
     try {
       const images = await this.prisma.image.findMany({
-        skip: 11 * counter || 0,
+        skip: 11 * counter,
         take: 11,
       });
+      if (!images.length)
+        throw new HttpException(
+          'there is no more photos',
+          HttpStatus.BAD_REQUEST
+        );
       return images;
     } catch (err) {
       throw err;
@@ -97,7 +103,6 @@ export class ImagesService {
     if (!name || !description) {
       return new HttpException('Invalid', HttpStatus.BAD_REQUEST);
     }
-    
 
     try {
       const link = await this.filesService.createFile(image);
@@ -143,14 +148,6 @@ export class ImagesService {
         },
       });
       if (image) return 'image deleted successfully';
-      // if (image.userId === userId) {
-      //   await this.prisma.image.delete({
-      //     where: {
-      //       id: imageId,
-      //     },
-      //   });
-      //   return 'image deleted successfully';
-      // }
       else {
         return new HttpException('you cannot delete', HttpStatus.BAD_REQUEST);
       }

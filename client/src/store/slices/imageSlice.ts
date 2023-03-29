@@ -5,7 +5,7 @@ import { imageThunk } from '../asyncThunk/imageThunk';
 import { uploadImageThunk } from '../asyncThunk/uploadImageThunk';
 
 const initialState: ImagesInitState = {
-  images: null,
+  images: [],
   status: null,
   error: null,
   uploadImage: {
@@ -24,7 +24,7 @@ const imageSlice = createSlice({
       state.status = 'loading';
     });
     builder.addCase(imageThunk.fulfilled, (state, action) => {
-      state.images = action.payload;
+      state.images.push(...action.payload);
       state.status = 'fulfilled';
       state.error = null;
     });

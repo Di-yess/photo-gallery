@@ -2,8 +2,8 @@ import { commonStyles } from './commonStyles';
 
 const styles = {
   container: {
-    width: '80%',
-    ...commonStyles.flex,
+    width: '545px',
+    // ...commonStyles.flex,
     flexDirection: 'column',
   },
 

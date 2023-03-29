@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { clearInfo } from 'src/store/slices/userSlice';
 import styles from 'src/styles/accountStyle';
@@ -20,14 +20,21 @@ const Account = () => {
   return (
     <>
       {image && (
-        <Modal image={image} setImage={setImage} blurElement={accountPageRef} />
+        <Modal
+          image={image}
+          setImage={setImage}
+          blurElement={accountPageRef}
+          personal={true}
+        />
       )}
       <Box sx={styles.account} ref={accountPageRef}>
         <Box sx={styles.container}>
-          <Box>Account</Box>
-          <Box sx={{ cursor: 'pointer' }} onClick={() => dispatch(clearInfo())}>
-            logout
-          </Box>
+          <Typography
+            variant='h5'
+            sx={{ pl: '10%', textDecoration: 'underline' }}
+          >
+            Account
+          </Typography>
         </Box>
         <Box display='flex' my={2.5}>
           <Box mr={2.5}>
@@ -37,10 +44,16 @@ const Account = () => {
           <DragAndDrop setImageFile={setImageFile} />
         </Box>
         {imageFile ? (
-          <UploadedImage imageFile={imageFile} />
+          <UploadedImage imageFile={imageFile} setImageFile={setImageFile} />
         ) : (
           <AccountImage setImage={setImage} blurElement={accountPageRef} />
         )}
+        <Box sx={{ cursor: 'pointer' }} onClick={() => dispatch(clearInfo())}>
+          <Typography variant='body1' sx={{ color: 'grey.500', py: 1 }}>
+            {' '}
+            logout
+          </Typography>
+        </Box>
       </Box>
     </>
   );

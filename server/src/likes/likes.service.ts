@@ -19,15 +19,22 @@ export class LikesService {
       );
     }
     try {
-      if (liked) {
+      const checkLike = await this.prisma.like.findFirst({
+        where: {
+          imageId,
+          userId,
+        },
+      });
+
+      if (liked && !checkLike) {
         const newLike = await this.prisma.like.create({
           data: {
             imageId,
-            userId, 
+            userId,
           },
         });
         return newLike;
-      } else {
+      } else if (!liked && checkLike) {
         const deletedLike = await this.prisma.like.deleteMany({
           where: {
             imageId,

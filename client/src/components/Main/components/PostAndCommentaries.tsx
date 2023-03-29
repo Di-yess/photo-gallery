@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styles from 'src/styles/mainStyle';
-import { IExtendedImage } from 'src/types/photo';
+import { IComment, IExtendedImage } from 'src/types/photo';
 import Commentarie from './Commentarie';
 import InputMessage from './InputMessage';
 import Post from './Post';
@@ -11,7 +11,12 @@ type Props = {
 };
 
 const PostAndCommentaries: FC<Props> = ({ image }) => {
-  const [comments, setComments] = useState(image.comments);
+  const [comments, setComments] = useState<IComment[]>([]);
+
+  useEffect(() => {
+    setComments(image.comments);
+  }, [image]);
+
   return (
     <Box sx={styles.postAndCommentaries}>
       <Post image={image} />

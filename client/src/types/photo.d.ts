@@ -16,7 +16,7 @@ export type ImageUploadInfo = {
 };
 
 export type ImagesInitState = {
-  images: Image[] | null;
+  images: Image[];
   status: string | null;
   error: string | null;
   uploadImage: {
